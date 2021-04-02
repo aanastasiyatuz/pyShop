@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{%for product in products%}
+<div class="card mb-3" style="margin: 10%">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{product.image.url}}" alt="there was image" style="weight: 200px; height: 200px "  >
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{%url 'detail' product.id%}" style="color: black">{{ product.name }}</a></h5>
+          <p class="card-text">{{ product.description }}</p>
+          {%if product.status == 'in stock'%}
+          <p style="color: green" class="card-text">{{ product.status }}</p>
+          <a href="{% url 'cart_add' product.id %}" class="btn btn-success">Add To Cart</a>
+          {%elif product.status == 'out of stock'%}
+          <p style="color: red" class="card-text">{{ product.status }}</p>
+          {%else%}
+          <p style="color: orange" class="card-text">{{ product.status }}</p>
+          {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
+{% if is_paginated %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'list' category %}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% endif %}
+    <li class="page-item"><a class="page-link" href="">{{ page_obj.number }}</a></li>
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'list' category %}?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+{% block content %}
+<div class="cart_products">
+  {% for key,value in request.session.cart.items %}
+<div class="card cart_card" style="width: 18rem;">
+  <img src="{{ value.image }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">Name: {{value.name}}</p>
+    <p class="card-text">Price: {{value.price}} сом</p>
+    <p class="card-text">Quantity: {{value.quantity}}</p>
+      <p class="card-text">Total cost: {{ value.price|multiply:value.quantity }} сом</p>
+  </div>
+      <div class="botton">
+      <a href="{% url 'item_increment' value.product_id %}" class="btn btn-success">Increament</a>
+      <a href="{% url 'item_decrement' value.product_id %}" class="btn btn-danger">Decrement</a>
+    </div>
+
+</div>
+{% endfor %}
+</div>
+<a id="clear" href="{% url 'cart_clear' %}" class="btn btn-danger">Clear Cart</a>
+
+
+
+
+{% endblock %}
