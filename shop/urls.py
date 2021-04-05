@@ -20,10 +20,12 @@ from product.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include
+from .views import parcing_news
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('news/', parcing_news, name='news'),
     path('', include('product.urls')),
     path('account/', include('account.urls')),
     path('', include('product.cart_urls')),

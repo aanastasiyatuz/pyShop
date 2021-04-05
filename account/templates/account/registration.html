@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" style="width:600px; margin: 50px 0 50px 100px">
     {{ form.as_p }}
     {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Sign up</button>
+    <button type="submit" class="btn btn-dark">Sign up</button>
 </form>
 {% endblock %}

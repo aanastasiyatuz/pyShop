@@ -1,44 +1,101 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>{% block title %}{% endblock %}</title>
-</head>
-<style>
-    body {
-    background-color: grey;
-    line-length: 1.5;
-    color: black;
-    }
-</style>
-<body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
-            <a href="{% url 'home' %}" class="navbar-brand" style="color:#6c757d" >PyShop</a>
-            {% if not request.user.is_authenticated %}
-                <a href="{% url 'signup' %}" class="navbar-brand" style="color:#6c757d" >Sign up</a>
-                <a href="{% url 'login' %}" class="navbar-brand" style="color:#6c757d" >Log in</a>
-            {% else %}
-                <a href="{% url 'logout' %}" class="navbar-brand" style="color:#6c757d" >Log out</a>
-                <span style="background-color:grey; padding-left:5px; padding-right:5px">{{ request.user.username }}</span>
-                <a href="{% url 'cart_detail' %}" class="btn btn-success">Cart</a>
-            {% endif %}
-            {% if request.user.is_staff %}
-            <a class="navbar-brand" href="{%url 'create-product'%}">
-                <img src="{% static 'img/plus.jpg' %}" alt="" width="30" height="24">
-            </a>
-            {% endif %}
-            <form class="d-flex" method="get" action="{% url 'search' %}">
+<html>
+	<head>
+		<title>{% block title %}Sportshop{% endblock %}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header" style="height:60px">
+				<a class="logo" href="{% url 'home' %}" style="margin-top:15px">Home</a>
+                {% if not request.user.is_authenticated %}
+                    <a href="{% url 'signup' %}" class="navbar-brand" style="color:#6c757d" >Sign up</a>
+                    <a href="{% url 'login' %}" class="navbar-brand" style="color:#6c757d" >Log in</a>
+                {% else %}
+                    <a href="{% url 'logout' %}" class="navbar-brand" style="color:#6c757d" >Log out</a>
+                    <span>{{ request.user.username }}</span>
+                    <a href="{% url 'cart_detail' %}" class="btn btn-success">Cart</a>
+                {% endif %}
+                <form class="d-flex" method="get" action="{% url 'search' %}" style="margin-top:30px">
                 <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-    {% block content %}{% endblock %}
-</body>
+                </form>
+				{% if request.user.is_staff %}
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+				{% endif %}
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/">Home</a></li>
+					<li><a href="/admin"></a>Admin</li>
+					<li><a href="{% url 'create-product' %}">Create Product</a></li>
+				</ul>
+			</nav>
+
+		{% block banner %}{% endblock %}
+
+		<div style="margin: 50px;">
+			{% block content %}{% endblock %}
+		</div>
+
+
+<!--		&lt;!&ndash; CTA &ndash;&gt;-->
+<!--			<section id="cta" class="wrapper">-->
+<!--				<div class="inner">-->
+<!--					<h2>Curabitur ullamcorper ultricies</h2>-->
+<!--					<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing. Lorem ipsum dolor vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing sed feugiat eu faucibus. Integer ac sed amet praesent. Nunc lacinia ante nunc ac gravida.</p>-->
+<!--				</div>-->
+<!--			</section>-->
+
+		{% block staff %}{% endblock %}
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="content">
+						<section>
+							<h3>About us</h3>
+							<p>Sportshop.com is the online specialist for everybody who loves to sport, wants to feel fit or enjoys working out. Our large collection, specialist products and our excellent service are just a few things that are of huge importance for us. At the moment we specialize in field running, basketball and tennis.</p>
+							<p>The employees of Sportshop.com work out every day just for you. They are ready to answer all your difficult questions and they are happy to give you advice. When your order arrives we run as fast as we can to collect the items and ship them to you. Some of our colleagues are continuously looking to find the best products just for you!</p>
+						</section>
+						<section>
+							<h4>You can call us</h4>
+							<ul class="alt">
+								<li><a href="#">+996 0555 010101</a></li>
+								<li><a href="#">+996 0555 020202</a></li>
+								<li><a href="#">+996 0555 030303</a></li>
+							</ul>
+						</section>
+						<section>
+							<h4>You can find us on</h4>
+							<ul class="plain">
+								<li><a href="https://www.youtube.com/watch?v=CzQ7SgEtAG4"><i class="icon fa-youtube">&nbsp;</i>YouTube</a></li>
+								<li><a href="https://www.instagram.com/aanastasyatuz"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+								<li><a href="https://github.com/aanastasiyatuz/Hakaton"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+							</ul>
+						</section>
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/browser.min.js' %}"></script>
+			<script src="{% static 'js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+
+	</body>
 </html>

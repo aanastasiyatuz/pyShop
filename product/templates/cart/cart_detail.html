@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load cart_tag %}
+{% load static %}
 {% block content %}
 <div class="cart_products">
   {% for key,value in request.session.cart.items %}
@@ -20,8 +21,4 @@
 {% endfor %}
 </div>
 <a id="clear" href="{% url 'cart_clear' %}" class="btn btn-danger">Clear Cart</a>
-
-
-
-
 {% endblock %}
