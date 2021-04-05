@@ -1,17 +1,83 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block banner %}
+<!-- Banner -->
+    <section id="banner">
+        <video autoplay loop muted playsinline src="{% static 'images/background.mp4' %}"></video>
+    </section>
+{% endblock %}
+
 {% block content %}
-<div style="margin-top: 100px;" class="container">
-    <ol class="list-group list-group-numbered">
-    {%for category in categories%}
-    {%if category.products.all%}
-      <li class="list-group-item d-flex justify-content-between align-items-start">
-        <div class="ms-2 me-auto">
-            <div class="fw-bold"><a href="{% url 'list' category.slug %} " style="color: black">{{category.title}}</a></div>
-        </div>
-        <span style="background-color: black" class="badge rounded-pill">{{category.products.count}}</span>
-      </li>
-    {%endif%}
-    {%endfor%}
-    </ol>
+<ol>
+{% for category in categories %}
+{% if category.products.all %}
+<li>
+    <div class="card">
+        <img src="{% static 'images/running_socks.jpg' %}" class="card-img-top" alt="..." style="width:200px;height:auto">
+        <a href="{{ category.get_absolute_url }}"><p class="card-text">{{category.title}}</p></a>
+        <p class="card-text">{{category.products.count}}</p>
+    </div>
+</li>
+{% endif %}
+{% endfor %}
+</ol>
 </div>
+{% endblock %}
+
+{% block staff %}
+<!-- Testimonials -->
+    <section class="wrapper">
+        <div class="inner">
+            <header class="special">
+                <h2>Our team</h2>
+            </header>
+            <div class="testimonials">
+                <section>
+                    <div class="content">
+                        <blockquote>
+                            <p>Anastasiya</p>
+                        </blockquote>
+                        <div class="author">
+                            <div class="image">
+                                <img src="{% static 'images/nastya3.jpg' %}" alt="" />
+                            </div>
+                            <p class="credit">- <strong>Anastasiya Tuz</strong>
+                            <br>
+                            <a href="https://makers.kg/" style="color:black">Makers Bootcamp</a></p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="content">
+                        <blockquote>
+                            <p>Ajar</p>
+                        </blockquote>
+                        <div class="author">
+                            <div class="image">
+                                <img src="{% static 'images/pic02.jpg' %}" alt="" />
+                            </div>
+                            <p class="credit">- <strong>Ajar</strong>
+                            <br>
+                            <a href="https://makers.kg/" style="color:black">Makers Bootcamp</a></p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="content">
+                        <blockquote>
+                            <p>Erjan</p>
+                        </blockquote>
+                        <div class="author">
+                            <div class="image">
+                                <img src="{% static 'images/pic03.jpg' %}" alt="" />
+                            </div>
+                            <p class="credit">- <strong>Erjan</strong>
+                            <br>
+                            <a href="https://makers.kg/" style="color:black">Makers Bootcamp</a></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -11,7 +11,7 @@ class RegistrationForm(forms.ModelForm):
         password = data.get('password')
         password_confirm = data.pop('password_confirmation')
         if password != password_confirm:
-            raise forms.ValidationError('Пароли не совпадают!')
+            raise forms.ValidationError('Password mismatch!')
         else:
             return data
 
@@ -22,9 +22,9 @@ class RegistrationForm(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('Пользователь с таким именем уже существует')
+            raise forms.ValidationError('A user with the same name already exists')
         return username
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password_confirmation', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'password', 'password_confirmation')

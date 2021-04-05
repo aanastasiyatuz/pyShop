@@ -9,6 +9,10 @@ class Category(models.Model):
                                related_name='children',
                                blank=True, null=True)
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('product-list', kwargs={'slug': self.slug})
+
     def __str__(self):
         if self.parent:
             return f'{self.parent} --> {self.title}'
